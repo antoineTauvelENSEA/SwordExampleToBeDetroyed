@@ -1,20 +1,29 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 
 public class GUI extends Application{
+        Rotate rx=new Rotate(1,256,256);
         @Override
         public void start(Stage primaryStage) throws Exception {
             primaryStage.setTitle("FAME Rulez");
 
             Group root = new Group();
+            Group gameRoot = new Group();
             Scene scene = new Scene(root, 512, 612,true);
+            Scene nextScene = new Scene(gameRoot, 512,612,true);
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -26,9 +35,11 @@ public class GUI extends Application{
             pane.getChildren().add(backgroundView);
             Image sun = new Image("file:./img/sun.png");
             ImageView sunView=new ImageView(sun);
-            pane.getChildren().add(sunView);
-            sunView.setX((background.getWidth()-sun.getWidth())/2);
-            sunView.setY((background.getHeight()-sun.getHeight())/2);
+            Pane sunPane = new Pane();
+            pane.getChildren().add(sunPane);
+            sunPane.getChildren().add(sunView);
+            sunPane.setTranslateX((background.getWidth()-sun.getWidth())/2);
+            sunPane.setTranslateY((background.getHeight()-sun.getHeight())/2);
             sunView.setScaleX(1.2);
             sunView.setScaleY(1.2);
 
@@ -38,7 +49,29 @@ public class GUI extends Application{
             earthView.setX(400);
             earthView.setY((background.getHeight()-earth.getHeight())/2);
 
+            AnimationTimer timer = new AnimationTimer() {
+                @Override
+                public void handle(long time) {
+                    final double[] scaleValue={1,1.05,1.1,1.25,1.3,1.35,1.4,1.45,1.5,1.45,1.4,1.35,1.3,1.25,1.1,1.05};
+                    int animationSunIndex=
+                            (int)(((time/1000000)/75)% scaleValue.length);
+                    sunView.setScaleX(scaleValue[animationSunIndex]);
+                    sunView.setScaleY(scaleValue[animationSunIndex]);
+                //    System.out.println(scaleValue[animationSunIndex]);
+                    earthView.getTransforms().add(rx);
+                }
+            };
 
+            timer.start();
+
+            sunPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("I've been cliked on "
+                            +mouseEvent.getSceneX()+","+mouseEvent.getSceneY());
+                primaryStage.setScene(nextScene);
+                }
+            });
 
         }
 
