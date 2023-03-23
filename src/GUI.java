@@ -49,6 +49,17 @@ public class GUI extends Application{
             earthView.setX(400);
             earthView.setY((background.getHeight()-earth.getHeight())/2);
 
+            Image[] ufo = new Image[6];
+
+            for (int i=0;i<6;i++){
+                ufo[i]=new Image("file:./img/ufo_"+i+".png");
+            }
+
+            ImageView ufoView = new ImageView(ufo[0]);
+            pane.getChildren().add(ufoView);
+            ufoView.setX(100);
+            ufoView.setY(100);
+
             AnimationTimer timer = new AnimationTimer() {
                 @Override
                 public void handle(long time) {
@@ -59,6 +70,13 @@ public class GUI extends Application{
                     sunView.setScaleY(scaleValue[animationSunIndex]);
                 //    System.out.println(scaleValue[animationSunIndex]);
                     earthView.getTransforms().add(rx);
+                    int animationUfoIndex = (int)(((time/1000000)/75)%ufo.length);
+                    ufoView.setImage(ufo[animationUfoIndex]);
+                    if(
+                            ufoView.getLayoutBounds().intersects(
+                                    earthView.getLayoutBounds())){
+                        System.out.println("Boum !");
+                    }
                 }
             };
 
