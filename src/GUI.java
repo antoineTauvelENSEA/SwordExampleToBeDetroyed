@@ -16,7 +16,10 @@ import javafx.stage.Stage;
 
 public class GUI extends Application{
         Rotate rx=new Rotate(1,256,256);
-        @Override
+        boolean destroyed=false;
+        boolean collision=false;
+        boolean old_collision=false;
+    @Override
         public void start(Stage primaryStage) throws Exception {
             primaryStage.setTitle("FAME Rulez");
 
@@ -50,11 +53,14 @@ public class GUI extends Application{
             earthView.setY((background.getHeight()-earth.getHeight())/2);
 
             Image[] ufo = new Image[6];
+            Image[] explosion = new Image[8];
 
             for (int i=0;i<6;i++){
                 ufo[i]=new Image("file:./img/ufo_"+i+".png");
             }
-
+            for (int i=0;i<8;i++){
+                explosion[i]=new Image("file:./img/explosion_"+i+".png");
+            }
             ImageView ufoView = new ImageView(ufo[0]);
             pane.getChildren().add(ufoView);
             ufoView.setX(100);
@@ -71,12 +77,20 @@ public class GUI extends Application{
                 //    System.out.println(scaleValue[animationSunIndex]);
                     earthView.getTransforms().add(rx);
                     int animationUfoIndex = (int)(((time/1000000)/75)%ufo.length);
-                    ufoView.setImage(ufo[animationUfoIndex]);
+                    int animationExplosionIndex = (int)(((time/1000000)/75)%explosion.length);
+                    ufoView.setImage(!destroyed? ufo[animationUfoIndex]:explosion[animationUfoIndex]);
                     if(
-                            ufoView.getLayoutBounds().intersects(
-                                    earthView.getLayoutBounds())){
+                            ufoView.getBoundsInParent().intersects(
+                                    earthView.getBoundsInParent())){
+                        collision=true;
+                        destroyed=destroyed^(collision&!(old_collision));
+
                         System.out.println("Boum !");
                     }
+                    else {
+                        collision=false;
+                    }
+                    old_collision=collision;
                 }
             };
 
