@@ -21,7 +21,7 @@ public class DemoBox2D {
         BodyDef bodyDef=new BodyDef();
         bodyDef.type = BodyType.DYNAMIC;
         bodyDef.position.set(0, 4);
-        bodyDef.angle=45;
+        bodyDef.angle=0;
         body = world.createBody(bodyDef);
 
         PolygonShape dynamicBox=new PolygonShape();
