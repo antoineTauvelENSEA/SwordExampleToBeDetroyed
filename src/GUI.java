@@ -102,6 +102,7 @@ public class GUI extends Application{
                     System.out.println("I've been cliked on "
                             +mouseEvent.getSceneX()+","+mouseEvent.getSceneY());
                 primaryStage.setScene(nextScene);
+
                 }
             });
 
