@@ -106,7 +106,7 @@ public class GUI extends Application{
                 public void handle(MouseEvent mouseEvent) {
                     System.out.println("I've been cliked on "
                             +mouseEvent.getSceneX()+","+mouseEvent.getSceneY());
-
+                    physicalEngine.impulseOnUFO();
 
                 }
             });

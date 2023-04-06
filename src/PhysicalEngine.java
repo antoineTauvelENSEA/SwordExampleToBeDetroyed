@@ -7,7 +7,7 @@ public class PhysicalEngine {
     public Body body;
 
     public PhysicalEngine(){
-        world = new World(new Vec2(5,10));
+        world = new World(new Vec2(0,0));
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(0,502);
@@ -47,6 +47,10 @@ public class PhysicalEngine {
         world.step(timeStep, velocityIterations, positionIterations);
         }
 
-        public impulseOnUFO(){}
+    public void impulseOnUFO(){
+        Vec2 impulse = new Vec2(-20,-100);
+        Vec2 center = new Vec2(20,20);
+        body.applyLinearImpulse(impulse,center);
+    }
 
 }
