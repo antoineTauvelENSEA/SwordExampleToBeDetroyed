@@ -19,6 +19,7 @@ public class GUI extends Application{
         boolean destroyed=false;
         boolean collision=false;
         boolean old_collision=false;
+        PhysicalEngine physicalEngine = new PhysicalEngine();
     @Override
         public void start(Stage primaryStage) throws Exception {
             primaryStage.setTitle("FAME Rulez");
@@ -66,9 +67,13 @@ public class GUI extends Application{
             ufoView.setX(100);
             ufoView.setY(100);
 
-            AnimationTimer timer = new AnimationTimer() {
+            AnimationTimer render = new AnimationTimer() {
                 @Override
                 public void handle(long time) {
+                    physicalEngine.update(time);
+                    ufoView.setX(physicalEngine.getUFOXPosition());
+                    ufoView.setY(physicalEngine.getUFOYPosition());
+
                     final double[] scaleValue={1,1.05,1.1,1.25,1.3,1.35,1.4,1.45,1.5,1.45,1.4,1.35,1.3,1.25,1.1,1.05};
                     int animationSunIndex=
                             (int)(((time/1000000)/75)% scaleValue.length);
@@ -94,14 +99,14 @@ public class GUI extends Application{
                 }
             };
 
-            timer.start();
+            render.start();
 
             sunPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     System.out.println("I've been cliked on "
                             +mouseEvent.getSceneX()+","+mouseEvent.getSceneY());
-                primaryStage.setScene(nextScene);
+
 
                 }
             });
