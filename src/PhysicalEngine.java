@@ -7,18 +7,18 @@ public class PhysicalEngine {
     public Body body;
 
     public PhysicalEngine(){
-        world = new World(new Vec2(0,0));
+        world = new World(new Vec2(0,10));
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(0,502);
         Body groundBody= world.createBody(groundBodyDef);
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(350,10);
+        groundBox.setAsBox(512,10);
         groundBody.createFixture(groundBox,0);
 
         BodyDef bodyDef=new BodyDef();
         bodyDef.type = BodyType.DYNAMIC;
-        bodyDef.position.set(100, 10);
+        bodyDef.position.set(100, 100);
         bodyDef.angle=0;
         body = world.createBody(bodyDef);
 
@@ -48,7 +48,7 @@ public class PhysicalEngine {
         }
 
     public void impulseOnUFO(){
-        Vec2 impulse = new Vec2(-20,-100);
+        Vec2 impulse = new Vec2(0,-10000);
         Vec2 center = new Vec2(20,20);
         body.applyLinearImpulse(impulse,center);
     }
