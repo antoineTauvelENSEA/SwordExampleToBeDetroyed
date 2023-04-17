@@ -1,3 +1,5 @@
+package com.hangman;
+
 public class GraphicalRiddle extends Riddle{
     public GraphicalRiddle(String answer, int maxNumberOfFails){
         super(answer,maxNumberOfFails);

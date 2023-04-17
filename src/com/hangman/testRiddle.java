@@ -1,3 +1,9 @@
+package com.hangman;
+
+import com.hangman.Game;
+import com.hangman.GraphicalRiddle;
+import com.hangman.Riddle;
+
 public class testRiddle {
     public static void main (String[] args){
         Riddle riddle = new Riddle("Computer",7);

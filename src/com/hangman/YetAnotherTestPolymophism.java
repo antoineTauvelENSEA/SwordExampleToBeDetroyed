@@ -1,3 +1,8 @@
+package com.hangman;
+
+import com.hangman.GraphicalRiddle;
+import com.hangman.Riddle;
+
 import java.util.ArrayList;
 
 public class YetAnotherTestPolymophism {

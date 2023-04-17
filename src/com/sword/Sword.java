@@ -1,3 +1,5 @@
+package com.sword;
+
 public class Sword {
     private final String name;
     private double attack;

@@ -1,3 +1,5 @@
+package com.sword;
+
 public class testSword {
     public static void main (String[] args){
         Sword s1= new Sword("Dard",20, 100);
